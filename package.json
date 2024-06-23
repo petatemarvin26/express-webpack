@@ -8,7 +8,7 @@
     "build:dev": "npm run clean & webpack --config ./config/webpack.config.js",
     "build:uat": "npm run clean & webpack --env env=uat --config ./config/webpack.config.js",
     "build:prod": "npm run clean & webpack --env env=prod --config ./config/webpack.config.js",
-    "start": "concurrently \"watch 'npm run build:dev' ./src \" \"nodemon ./build\""
+    "start": "concurrently \"watch 'npm run build:dev' ./src \" \" npm run build:dev && nodemon ./build\""
   },
   "keywords": [],
   "author": "",
