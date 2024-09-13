@@ -1,6 +1,6 @@
 const path = require("path");
 
-const PORT = 3100;
+const PORT = 4000;
 const ROOT_DIR = path.resolve(__dirname, "..");
 
 const TS = /\.(ts)$/;
