@@ -3,7 +3,7 @@ import { Log } from "utils";
 
 class App {
   _app: Express;
-  static _instance: null | App;
+  static _instance: null | App = null;
   constructor() {
     this._app = express();
 
@@ -27,7 +27,7 @@ class App {
   }
 
   private registerMiddlewares() {
-    // register your middleware here
+    // register your middlewares here
   }
 
   public static instance() {
@@ -37,7 +37,7 @@ class App {
     return new App();
   }
 
-  public static async start() {
+  public static start() {
     const app = App.instance();
     app.start();
   }

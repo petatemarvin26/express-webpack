@@ -1,3 +1,8 @@
 import App from "App";
 
-App.start();
+(async () => {
+  if (!process.env.NODE_ENV) {
+    await import("dotenv/config");
+  }
+  App.start();
+})();
