@@ -7,8 +7,8 @@ class App {
   constructor() {
     this._app = express();
 
-    this.registerRouters();
     this.registerMiddlewares();
+    this.registerRouters();
   }
 
   private start() {
