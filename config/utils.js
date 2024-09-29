@@ -7,7 +7,7 @@ const getenv = (env) => {
   const envfile = resolve(`.env${env ? `.${env}` : ""}`);
   try {
     const vars = dotenv.config({ path: envfile });
-    return vars.parsed;
+    return { ...vars.parsed, ...process.env };
   } catch (err) {
     return {};
   }
