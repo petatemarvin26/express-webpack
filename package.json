@@ -1,6 +1,6 @@
 {
   "name": "express-webpack",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "This project can use as boilerplate of express backend service application.",
   "main": "src/index.ts",
   "scripts": {

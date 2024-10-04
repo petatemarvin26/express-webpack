@@ -1,23 +1,31 @@
 class Log {
-  private print(...args: any[]) {
+  private static now() {
     const date = new Date();
     const calndr = date.toLocaleDateString();
     const time = date.toLocaleTimeString();
-    console.log(`[${calndr} - ${time}]:`, ...args);
-  }
-  private table(arg: any) {
-    console.table(arg);
+    return `[${calndr} - ${time}]:`;
   }
   public static _instance() {
     return new Log();
   }
-  public static tabl(object: object) {
-    const log = Log._instance();
-    log.table(object);
+  /**
+   * Use for object
+   */
+  public static table(object: object) {
+    console.info(this.now());
+    console.table(object);
   }
-  public static msg(...msgs: any[]) {
-    const log = Log._instance();
-    log.print(...msgs);
+  /**
+   *  Use for information
+   */
+  public static info(...msgs: any[]) {
+    console.info(this.now(), ...msgs);
+  }
+  /**
+   * Use for error stack trace
+   */
+  public static err(...msgs: any[]) {
+    console.error(this.now(), ...msgs);
   }
 }
 
