@@ -13,10 +13,10 @@ class App {
 
   private start() {
     const PORT = process.env.PORT;
-    const NODE_ENV = process.env.NODE_ENV;
-    Log.info('Run as', NODE_ENV);
+    const ENV = process.env.ENV;
+    Log.info("Run as", ENV);
     this._app.listen(PORT, () => {
-      Log.info('The server runs in port', PORT);
+      Log.info("The server runs in port", PORT);
     });
   }
 

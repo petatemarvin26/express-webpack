@@ -17,16 +17,9 @@ This configuration was based on [Webpack Documentation] follow the standard and 
 
 ## Environments
 
-> Important: environment files are map using --env env, so make sure you double check the env at package json script
+The env variables must be exposed before building the node application
 
-```sh
-
-# the bundler will read your env file as .env.<?> depends on the script --env env=prod
-.env.prod
-
-# if env var is undefined, it read as
-.env
-```
+> Reminder: use `ENV` not the `NODE_ENV` for arbitrary build
 
 ## License
 
