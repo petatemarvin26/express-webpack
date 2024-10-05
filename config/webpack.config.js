@@ -11,8 +11,8 @@ const { TS } = require("./constants");
  * @param {any} env
  * @returns {import('webpack').Configuration}
  */
-module.exports = ({ env }) => {
-  const envobj = getenv(env);
+module.exports = () => {
+  const envobj = getenv();
   return {
     target: "node",
     mode: "production",
