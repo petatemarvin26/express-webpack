@@ -1,10 +1,10 @@
-const { DefinePlugin } = require("webpack");
-const TsErrorPlugin = require("fork-ts-checker-webpack-plugin");
-const TsPathPlugin = require("tsconfig-paths-webpack-plugin");
-const nodeExternals = require("webpack-node-externals");
+const {DefinePlugin} = require('webpack');
+const TsErrorPlugin = require('fork-ts-checker-webpack-plugin');
+const TsPathPlugin = require('tsconfig-paths-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 
-const { resolve, getenv } = require("./utils");
-const { TS } = require("./constants");
+const {resolve, getenv} = require('./utils');
+const {TS} = require('./constants');
 
 /**
  *
@@ -14,36 +14,36 @@ const { TS } = require("./constants");
 module.exports = () => {
   const envobj = getenv();
   return {
-    target: "node",
-    mode: "production",
+    target: 'node',
+    mode: 'production',
     entry: {
-      index: resolve("src/index.ts"),
+      index: resolve('src/index.ts')
     },
     output: {
-      path: resolve("build"),
-      filename: "index.js",
+      path: resolve('build'),
+      filename: 'index.js'
     },
     module: {
       rules: [
         {
           test: TS,
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            configFile: resolve("config/.babelrc"),
-          },
-        },
-      ],
+            configFile: resolve('config/.babelrc')
+          }
+        }
+      ]
     },
     plugins: [
       new TsErrorPlugin(),
       new DefinePlugin({
-        "process.env": JSON.stringify(envobj),
-      }),
+        'process.env': JSON.stringify(envobj)
+      })
     ],
     resolve: {
-      extensions: [".js", ".ts"],
-      plugins: [new TsPathPlugin({ configFile: resolve("tsconfig.json") })],
+      extensions: ['.js', '.ts'],
+      plugins: [new TsPathPlugin({configFile: resolve('tsconfig.json')})]
     },
-    externals: [nodeExternals()],
+    externals: [nodeExternals()]
   };
 };
