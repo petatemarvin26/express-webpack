@@ -1,5 +1,5 @@
-import express, { Express } from "express";
-import { Log } from "utils";
+import express, {Express} from 'express';
+import {Log} from 'utils';
 
 class App {
   _app: Express;
@@ -14,17 +14,17 @@ class App {
   private start() {
     const PORT = process.env.PORT;
     const ENV = process.env.ENV;
-    Log.info("Run as", ENV);
+    Log.info('Run as', ENV);
     this._app.listen(PORT, () => {
-      Log.info("The server runs in port", PORT);
+      Log.info('The server runs in port', PORT);
     });
   }
 
   private registerRouters() {
     // register your router here
 
-    this._app.get("/", (req, res) => {
-      res.status(200).json({ message: "healthy" });
+    this._app.get('/', (req, res) => {
+      res.status(200).json({message: 'healthy'});
     });
   }
 
