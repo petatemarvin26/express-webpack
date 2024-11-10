@@ -1,13 +1,13 @@
 {
   "name": "express-webpack",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "This project can use as boilerplate of express backend service application.",
   "main": "src/index.ts",
   "scripts": {
     "clean": "rm -rf ./build",
     "build": "npm run clean && webpack --config ./config/webpack.config.js",
-    "start:build": "node build/index.js",
-    "start": "nodemon src/index.ts"
+    "start": "nodemon src/index.ts",
+    "prod": "npm run build && node build/index.js"
   },
   "keywords": [],
   "author": "",
