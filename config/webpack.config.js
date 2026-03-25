@@ -1,4 +1,3 @@
-const {DefinePlugin} = require('webpack');
 const TsErrorPlugin = require('fork-ts-checker-webpack-plugin');
 const TsPathPlugin = require('tsconfig-paths-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
@@ -34,12 +33,7 @@ module.exports = () => {
         }
       ]
     },
-    plugins: [
-      new TsErrorPlugin(),
-      new DefinePlugin({
-        'process.env': JSON.stringify(envobj)
-      })
-    ],
+    plugins: [new TsErrorPlugin()],
     resolve: {
       extensions: ['.js', '.ts'],
       plugins: [new TsPathPlugin({configFile: resolve('tsconfig.json')})]
