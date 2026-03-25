@@ -33,10 +33,10 @@ class App {
   }
 
   public static instance() {
-    if (this._instance !== null) {
-      return this._instance;
+    if (this._instance === null) {
+      this._instance = new App();
     }
-    return new App();
+    return this._instance;
   }
 
   public static start() {
