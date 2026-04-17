@@ -1,5 +1,5 @@
 import express, {Express} from 'express';
-import {Log} from 'utils';
+import {Log} from '@/utils';
 
 class App {
   _app: Express;
