@@ -1,48 +1,37 @@
-import express, {Express} from 'express';
-import {Log} from '@/utils';
+import AbsExpress from '@/common/abstract/AbsExpress';
+import AbsMiddleware from '@/common/abstract/AbsMiddleware';
+import AbsRouter from '@/common/abstract/AbsRouter';
+import {
+  CorsMiddleware,
+  JsonMiddleware,
+  UrlEncodedMiddleware
+} from '@/middlewares';
 
-class App {
-  _app: Express;
-  static _instance: null | App = null;
+export default class App extends AbsExpress {
+  protected HOST: string = 'localhost';
+  protected PORT: number = 4000;
+  protected middlewares: AbsMiddleware[] = [
+    new CorsMiddleware(),
+    new JsonMiddleware(),
+    new UrlEncodedMiddleware()
+  ];
+  protected routers: AbsRouter[] = [];
+
   constructor() {
-    this._app = express();
-
+    super();
     this.registerMiddlewares();
     this.registerRouters();
   }
 
-  private start() {
-    const PORT = process.env.PORT;
-    const ENV = process.env.ENV;
-    Log.info('Run as', ENV);
-    this._app.listen(PORT, () => {
-      Log.info('The server runs in port', PORT);
-    });
-  }
-
-  private registerRouters() {
-    // register your router here
-
-    this._app.get('/', (req, res) => {
-      res.status(200).json({message: 'healthy'});
-    });
-  }
-
-  private registerMiddlewares() {
-    // register your middlewares here
-  }
-
-  public static instance() {
-    if (this._instance === null) {
+  private static _instance: App | null = null;
+  public static getInstance() {
+    if (!this._instance) {
       this._instance = new App();
     }
     return this._instance;
   }
-
-  public static start() {
-    const app = App.instance();
-    app.start();
+  public static run() {
+    const app = App.getInstance();
+    app.run();
   }
 }
-
-export default App;

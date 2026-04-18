@@ -1,8 +1,8 @@
-import App from "App";
+import App from '@/App';
 
 (async () => {
   if (!process.env.ENV) {
-    await import("dotenv/config");
+    await import('dotenv/config');
   }
-  App.start();
+  App.run();
 })();
