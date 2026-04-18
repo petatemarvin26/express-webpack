@@ -2,7 +2,7 @@ const TsErrorPlugin = require('fork-ts-checker-webpack-plugin');
 const TsPathPlugin = require('tsconfig-paths-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 
-const {resolve, getenv} = require('./utils');
+const {resolve} = require('./utils');
 const {TS} = require('./constants');
 
 /**
@@ -11,7 +11,6 @@ const {TS} = require('./constants');
  * @returns {import('webpack').Configuration}
  */
 module.exports = () => {
-  const envobj = getenv();
   return {
     target: 'node',
     mode: 'production',
