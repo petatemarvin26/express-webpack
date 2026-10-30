@@ -1,7 +1,7 @@
-import {Handler} from '@/common/types/api';
+import {ErrorHandler, Handler} from '@/common/types/api';
 
 abstract class AbsMiddleware {
-  public abstract handler: Handler;
+  public abstract handler: Handler | ErrorHandler;
 }
 
 export default AbsMiddleware;
