@@ -3,6 +3,7 @@ import AbsMiddleware from '@/common/abstract/AbsMiddleware';
 import AbsRouter from '@/common/abstract/AbsRouter';
 import {
   CorsMiddleware,
+  ErrorHandlerMiddleware,
   JsonMiddleware,
   UrlEncodedMiddleware
 } from '@/middlewares';
@@ -13,7 +14,8 @@ export default class App extends AbsExpress {
   protected middlewares: AbsMiddleware[] = [
     new CorsMiddleware(),
     new JsonMiddleware(),
-    new UrlEncodedMiddleware()
+    new UrlEncodedMiddleware(),
+    new ErrorHandlerMiddleware()
   ];
   protected routers: AbsRouter[] = [];
 
