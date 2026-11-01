@@ -19,8 +19,8 @@ abstract class AbsExpress {
   protected abstract get fallbacks(): Array<AbsFallback>;
 
   constructor() {
-    this.registerRouters();
     this.registerMiddlewares();
+    this.registerRouters();
     this.registerServices();
     this.registerFallbacks();
   }

@@ -23,10 +23,10 @@ export default class App extends AbsExpress {
 
   protected get middlewares(): AbsMiddleware[] {
     return [
+      new LoggerMiddleware(),
       new CorsMiddleware(),
       new JsonMiddleware(),
-      new UrlEncodedMiddleware(),
-      new LoggerMiddleware()
+      new UrlEncodedMiddleware()
     ];
   }
 

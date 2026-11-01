@@ -4,7 +4,8 @@ import {Log} from '@/common/utils';
 
 export class LoggerMiddleware extends AbsMiddleware {
   public handler: Handler = (req, res, next) => {
-    res.on('finish', () => Log.info(req.method, req.path, res.statusCode));
+    const endpoint = req.path;
+    res.on('finish', () => Log.info(req.method, endpoint, res.statusCode));
     next();
   };
 
