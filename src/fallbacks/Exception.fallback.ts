@@ -3,6 +3,6 @@ import type {ErrorHandler} from '@/common/types/api';
 
 export class ExceptionFallback extends AbsFallback {
   public handler: ErrorHandler = (err, req, res, next) => {
-    res.status(500).json({message: `Exception: ${err.message}`});
+    res.status(500).json({message: err.message});
   };
 }
