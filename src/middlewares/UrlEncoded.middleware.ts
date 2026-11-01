@@ -1,8 +1,10 @@
 import express from 'express';
 
 import {AbsMiddleware} from '@/common/abstract';
-import {Handler} from '@/common/types/api';
+import type {Handler} from '@/common/types/api';
 
-export default class UrlEndcodedMiddleware extends AbsMiddleware {
+export class UrlEncodedMiddleware extends AbsMiddleware {
+  public middlewares: AbsMiddleware[] = [];
+  public fallbacks: AbsMiddleware[] = [];
   public handler: Handler = express.urlencoded({extended: true});
 }

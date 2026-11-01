@@ -1,4 +1,4 @@
-export {default as CorsMiddleware} from './Cors.middleware';
-export {default as JsonMiddleware} from './Json.middleware';
-export {default as UrlEncodedMiddleware} from './UrlEncoded.middleware';
-export {default as ErrorHandlerMiddleware} from './ErrorHandler.middleware'
+export {CorsMiddleware} from './Cors.middleware';
+export {JsonMiddleware} from './Json.middleware';
+export {LoggerMiddleware} from './Logger.middleware';
+export {UrlEncodedMiddleware} from './UrlEncoded.middleware';

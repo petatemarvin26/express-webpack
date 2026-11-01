@@ -4,14 +4,26 @@ import {Log} from '@/common/utils';
 
 import AbsRouter from './AbsRouter';
 import AbsMiddleware from './AbsMiddleware';
+import AbsService from './AbsService';
+import AbsFallback from './AbsFallback';
 
 abstract class AbsExpress {
-  public _express: Express = express();
+  protected _express: Express = express();
 
   protected abstract PORT: number;
   protected abstract HOST: string;
-  protected abstract routers: Array<AbsRouter>;
-  protected abstract middlewares: Array<AbsMiddleware>;
+
+  protected abstract get routers(): Array<AbsRouter>;
+  protected abstract get middlewares(): Array<AbsMiddleware>;
+  protected abstract get services(): Array<AbsService>;
+  protected abstract get fallbacks(): Array<AbsFallback>;
+
+  constructor() {
+    this.registerRouters();
+    this.registerMiddlewares();
+    this.registerServices();
+    this.registerFallbacks();
+  }
 
   protected registerRouters() {
     this.routers.forEach(({endpoint, getRouter}) => {
@@ -20,7 +32,30 @@ abstract class AbsExpress {
   }
 
   protected registerMiddlewares() {
-    this.middlewares.forEach(({handler}) => {
+    this.middlewares.forEach(({middlewares, handler, fallbacks}) => {
+      const middlr_handlers = middlewares.map((m) => m.handler);
+      const fallbacks_handlers = fallbacks.map((f) => f.handler);
+      this._express.use(...middlr_handlers, handler, ...fallbacks_handlers);
+    });
+  }
+
+  protected registerServices() {
+    this.services.forEach(
+      ({method, endpoint, middlewares, handler, fallbacks}) => {
+        const middlr_handlers = middlewares.map((m) => m.handler);
+        const fallbacks_handlers = fallbacks.map((f) => f.handler);
+        this._express[method](
+          endpoint,
+          ...middlr_handlers,
+          handler,
+          ...fallbacks_handlers
+        );
+      }
+    );
+  }
+
+  protected registerFallbacks() {
+    this.fallbacks.forEach(({handler}) => {
       this._express.use(handler);
     });
   }

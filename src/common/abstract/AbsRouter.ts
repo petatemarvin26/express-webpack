@@ -2,16 +2,24 @@ import {Router} from 'express';
 
 import AbsService from './AbsService';
 import AbsMiddleware from './AbsMiddleware';
+import AbsFallback from './AbsFallback';
 
 abstract class AbsRouter {
-  private _router: Router = Router();
+  protected _router: Router = Router();
 
-  public abstract services: Array<AbsService>;
-  public abstract routers: Array<AbsRouter>;
-  public abstract middlewares: Array<AbsMiddleware>;
   public abstract endpoint: string;
 
+  public abstract get routers(): Array<AbsRouter>;
+  public abstract get middlewares(): Array<AbsMiddleware>;
+  public abstract get services(): Array<AbsService>;
+  public abstract get fallbacks(): Array<AbsFallback>;
+
   constructor() {
+    this.registerRouters();
+    this.registerMiddlewares();
+    this.registerServices();
+    this.registerFallbacks();
+
     this.getRouter = this.getRouter.bind(this);
   }
 
@@ -19,18 +27,40 @@ abstract class AbsRouter {
     return this._router;
   }
 
-  protected registerServices() {
-    this.services.forEach(({method, endpoint, handler}) => {
-      this._router[method](endpoint, handler);
-    });
-  }
   protected registerRouters() {
     this.routers.forEach(({endpoint, _router}) => {
       this._router.use(endpoint, _router);
     });
   }
+
+  /**
+   * Middleware registration dept is only 1
+   */
   protected registerMiddlewares() {
-    this.middlewares.forEach(({handler}) => {
+    this.middlewares.forEach(({middlewares, handler, fallbacks}) => {
+      const middlr_handlers = middlewares.map((m) => m.handler);
+      const fallbacks_handlers = fallbacks.map((f) => f.handler);
+      this._router.use(...middlr_handlers, handler, ...fallbacks_handlers);
+    });
+  }
+
+  protected registerServices() {
+    this.services.forEach(
+      ({method, endpoint, middlewares, handler, fallbacks}) => {
+        const middlr_handlers = middlewares.map((m) => m.handler);
+        const fallbacks_handlers = fallbacks.map((f) => f.handler);
+        this._router[method](
+          endpoint,
+          ...middlr_handlers,
+          handler,
+          ...fallbacks_handlers
+        );
+      }
+    );
+  }
+
+  protected registerFallbacks() {
+    this.fallbacks.forEach(({handler}) => {
       this._router.use(handler);
     });
   }
